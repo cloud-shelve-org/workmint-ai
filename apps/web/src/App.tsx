@@ -85,7 +85,7 @@ export default function App(){
   finally{setBusy(false);}
  }
  async function extractResume(){if(!file)throw new Error("Choose a resume PDF or DOCX first.");const t=file.name.toLowerCase().endsWith(".pdf")?(await pdfText(file)).text:await docxText(file);setResume(t);setNotice("Resume text extracted locally. Review it before analysis.");}
- const isFileTool=["Summarize a PDF","Search a PDF","Extract PDF text","PDF to text","DOCX to text","Split PDF pages","Image to PDF","JPG to PDF","PDF to JPG","PDF to PNG","Extract Pages","Delete Pages","Rotate PDF","Add Page Numbers","Watermark PDF","PDF to Word","PDF to Excel","PDF to PowerPoint","Word to PDF","Excel to PDF","PowerPoint to PDF","HTML to PDF"].includes(tool);
+ const isFileTool=["Summarize a PDF","Search a PDF","Extract PDF text","PDF to text","DOCX to text","Split PDF pages","Duplicate Pages","Reverse Page Order","Rotate Selected Pages","Crop PDF Pages","Resize PDF Pages","2-up PDF","Grayscale PDF","Remove PDF Metadata","Set PDF Metadata","Image to PDF","JPG to PDF","PDF to JPG","PDF to PNG","Extract Pages","Delete Pages","Rotate PDF","Add Page Numbers","Watermark PDF","PDF to Word","PDF to Excel","PDF to PowerPoint","Word to PDF","Excel to PDF","PowerPoint to PDF","HTML to PDF"].includes(tool);
  const isTwo=["Compare documents","Merge PDFs"].includes(tool);
  const isResume=["Resume analyzer","Job description match","Cover letter draft"].includes(tool);
  const isText=["Text summarizer","Word counter","Tone and case tools","Duplicate line remover"].includes(tool);
