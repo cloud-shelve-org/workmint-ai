@@ -7,7 +7,14 @@ Reference scope reviewed on 18 November 2026: Sejda's official PDF tool catalogu
 - Split by selected page ranges
 - Extract selected pages
 - Delete selected pages
-- Rotate all pages
+- Rotate all pages or selected pages
+- Duplicate selected pages in place
+- Reverse page order
+- Crop pages using a fixed 24 pt inset
+- Resize pages to A4
+- Create 2-up layouts
+- Rasterised grayscale export (text/vector fidelity is lost)
+- Set or clear basic document metadata
 - Add simple page numbers
 - Text watermark
 - PDF to selectable text
