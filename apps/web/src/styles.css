@@ -68,3 +68,7 @@ body{font-size:15px}
  .run-button{font-size:14px}
  .output-panel pre{font-size:14px}
 }
+
+
+/* Workmint brand identity */
+.brand{padding-bottom:34px}.brand-logo{display:block;width:174px;height:42px;object-fit:contain;object-position:left center}.brand:hover{opacity:.9}
