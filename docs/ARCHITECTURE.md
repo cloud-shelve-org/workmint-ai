@@ -6,17 +6,22 @@ Workmint is a static site hosted on GitHub Pages. There is no Workmint backend, 
 ## Browser execution
 - React + TypeScript + Vite application.
 - PDF.js extracts selectable text from PDFs.
-- pdf-lib merges PDFs and creates simple text PDFs.
+- pdf-lib merges/splits PDFs and creates simple text PDFs and image PDFs.
 - Mammoth extracts text from DOCX.
 - docx creates DOCX documents from text.
 - Text utilities, resume heuristics, keyword retrieval, JSON formatting and JWT decoding run in the browser.
-- Files are held in page memory during processing. Favourites and recent tools use browser localStorage.
+- Favourites and recent tools use browser localStorage.
 
-## AI capability boundary
-The shipped utilities currently use deterministic parsing, keyword matching, extractive summarization and heuristics. They are not generative AI. A local LLM can only be added as a separate optional browser runtime after validating supported browsers, WebGPU/WASM fallback, model size, download UX, memory use, licensing and output quality. No provider API key may be embedded in this public static application.
+## Optional local AI
+- Transformers.js provides an opt-in summarization pipeline using the `Xenova/distilbart-cnn-6-6` model.
+- The model is downloaded from the Hugging Face model host to the browser and cached by the browser runtime.
+- Inference runs on the user's device; there is no Workmint inference server and no provider API key.
+- The initial model download is large (the interface estimates approximately 300 MB). Performance and compatibility depend on browser, hardware, memory and available WASM/WebGPU support.
+- If the model cannot load, deterministic extractive summarization remains available.
+- The local model is currently used for summarization only. Resume review, keyword retrieval and error hints are deterministic heuristics, not generative AI.
 
 ## Privacy
-Workmint does not intentionally upload selected files or text to a Workmint server. Processing occurs in the user's browser. Browser extensions, device compromise and external browser services remain outside Workmint's control.
+Workmint does not intentionally upload selected files or submitted text to a Workmint server or inference API. Model files are downloaded from the configured model host. Browser extensions, compromised devices and other browser software remain outside Workmint's control.
 
 ## Known limitations
 - Scanned PDFs require OCR; OCR is not included.
