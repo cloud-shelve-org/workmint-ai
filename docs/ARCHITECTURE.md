@@ -1,23 +1,28 @@
-# Architecture
+# Architecture — browser-only edition
 
-## Current MVP
-- React + TypeScript + Vite frontend in `apps/web`.
-- Cloudflare Worker API in `workers/api` (deployment is intentionally deferred).
-- Cloudflare D1 schema for daily usage accounting.
-- AI provider credentials exist only as Worker secrets, never in frontend code.
+## Deployment boundary
+Workmint is a static site hosted on GitHub Pages. There is no Workmint backend, database, serverless function, API proxy, server-side secret, account service or telemetry collector.
 
-## Request flow
-Browser -> same-origin `POST /api/explain` -> input validation -> secret redaction -> per-IP daily quota in D1 -> configured OpenAI-compatible chat-completions endpoint -> structured analysis returned to browser.
+## Browser execution
+- React + TypeScript + Vite application.
+- PDF.js extracts selectable text from PDFs.
+- pdf-lib merges PDFs and creates simple text PDFs.
+- Mammoth extracts text from DOCX.
+- docx creates DOCX documents from text.
+- Text utilities, resume heuristics, keyword retrieval, JSON formatting and JWT decoding run in the browser.
+- Files are held in page memory during processing. Favourites and recent tools use browser localStorage.
 
-## Security controls
-- Server-side API key only.
-- Strict method/path/body-size/input-length checks.
-- Same-origin by default; optional exact origin allowlist.
-- Daily hashed-IP quota with atomic conditional database updates and fail-closed behavior.
-- No raw IP stored in the usage table.
-- Common credential patterns redacted before provider submission.
-- No request/response body logging by the Worker.\n- Aggregate input/output token counts are recorded for cost monitoring; prompt and response content are not stored.\n- Hashed usage records older than 35 days are deleted during requests.
-- AI instructions treat log content as untrusted input.
+## AI capability boundary
+The shipped utilities currently use deterministic parsing, keyword matching, extractive summarization and heuristics. They are not generative AI. A local LLM can only be added as a separate optional browser runtime after validating supported browsers, WebGPU/WASM fallback, model size, download UX, memory use, licensing and output quality. No provider API key may be embedded in this public static application.
 
-## Important limitations before public production
-The quota increment is atomic at the D1 row level. Add Turnstile, account-level quotas, provider spend alerts, and abuse monitoring before opening access widely. IP-based limits can be bypassed with changing IP addresses and are not a substitute for account-level controls. Secret redaction is best-effort, not a guarantee; users must still remove sensitive data.
+## Privacy
+Workmint does not intentionally upload selected files or text to a Workmint server. Processing occurs in the user's browser. Browser extensions, device compromise and external browser services remain outside Workmint's control.
+
+## Known limitations
+- Scanned PDFs require OCR; OCR is not included.
+- PDF text extraction works only for selectable text.
+- PDF comparison currently compares extracted text tokens/keywords, not layout or semantic meaning.
+- Resume analysis and job-description matching are heuristic aids, not ATS scores or hiring predictions.
+- JWT decoding does not verify signatures.
+- Rule-based error hints are not AI diagnosis.
+- Browser memory and device capability constrain large files.
