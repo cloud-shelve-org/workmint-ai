@@ -8,7 +8,6 @@ import { Document, Packer, Paragraph, TextRun } from "docx";
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 type Tool = "pdf" | "convert" | "resume" | "text" | "developer";
-type FileInfo = { name: string; size: number; type: string };
 const fmtBytes = (n: number) => n < 1024 ? n + " B" : n < 1048576 ? (n / 1024).toFixed(1) + " KB" : (n / 1048576).toFixed(2) + " MB";
 const download = (blob: Blob, name: string) => { const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = name; a.click(); URL.revokeObjectURL(url); };
 const readFile = (file: File) => new Promise<ArrayBuffer>((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(r.result as ArrayBuffer); r.onerror = () => reject(new Error("Could not read this file.")); r.readAsArrayBuffer(file); });
