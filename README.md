@@ -21,6 +21,7 @@ See [docs/SETUP.md](docs/SETUP.md). Node.js 20+ and npm 10+ are required.
 ## Product and architecture
 - [Architecture](docs/ARCHITECTURE.md)
 - [Product principles](docs/PRODUCT_PRINCIPLES.md)
+- [Initial product research](docs/PRODUCT_RESEARCH.md)
 - [Launch checklist](docs/LAUNCH_CHECKLIST.md)
 
 ## Security
