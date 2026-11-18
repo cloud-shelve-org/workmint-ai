@@ -7,7 +7,8 @@
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit",
     "db:migrate:local": "wrangler d1 execute workmint-usage --local --file=migrations/0001_usage.sql",
-    "db:migrate:remote": "wrangler d1 execute workmint-usage --remote --file=migrations/0001_usage.sql"
+    "db:migrate:remote": "wrangler d1 execute workmint-usage --remote --file=migrations/0001_usage.sql",
+    "usage:report": "wrangler d1 execute workmint-usage --remote --command=\"SELECT usage_date, SUM(request_count) AS requests, SUM(input_tokens) AS input_tokens, SUM(output_tokens) AS output_tokens FROM usage_daily GROUP BY usage_date ORDER BY usage_date DESC LIMIT 30;\""
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241127.0",
