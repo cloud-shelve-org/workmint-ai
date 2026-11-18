@@ -86,10 +86,19 @@ export default {
         const status = upstream.status;
         return json({ error: status === 429 ? "AI provider is busy or its quota is exhausted. Please retry later." : "The AI provider could not complete the analysis. Please retry later." }, 502);
       }
-      const data = await upstream.json() as { choices?: { message?: { content?: string } }[] };
+      const data = await upstream.json() as { choices?: { message?: { content?: string } }[]; usage?: { prompt_tokens?: number; completion_tokens?: number } };
       const analysis = data.choices?.[0]?.message?.content;
       if (!analysis) return json({ error: "The AI provider returned an empty response." }, 502);
-      return json({ analysis });
+      const inputTokens = Number(data.usage?.prompt_tokens || 0);
+      const outputTokens = Number(data.usage?.completion_tokens || 0);
+      // Store aggregate token counts only; never store the submitted log or model response.
+      if (inputTokens || outputTokens) {
+        try {
+          await env.DB.prepare("UPDATE usage_daily SET input_tokens = input_tokens + ?, output_tokens = output_tokens + ? WHERE ip_hash = ? AND usage_date = ?")
+            .bind(inputTokens, outputTokens, ipHash, day).run();
+        } catch { /* Request quota remains enforced even if optional token accounting is unavailable. */ }
+      }
+      return json({ analysis, usage: { inputTokens, outputTokens } });
     } catch {
       return json({ error: "Could not reach the AI provider. Please retry later." }, 502);
     }
