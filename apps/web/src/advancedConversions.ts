@@ -40,7 +40,9 @@ async function makePdf(text: string, name: string) {
     y -= 5;
   }
   const bytes = await pdf.save();
-  save(new Blob([bytes], { type: "application/pdf" }), name);
+  const output = new Uint8Array(bytes.length);
+  output.set(bytes);
+  save(new Blob([output.buffer], { type: "application/pdf" }), name);
 }
 async function getPdfText(file: File) {
   const doc = await pdfjs.getDocument({ data: new Uint8Array(await read(file)) }).promise;
@@ -81,7 +83,6 @@ export async function runAdvancedConversion(tool: string, file: File): Promise<s
     return "Extracted selectable PDF text into spreadsheet rows. This is a best-effort text-layout heuristic, not reliable table reconstruction. Check columns and values.";
   }
   if (tool === "PDF to PowerPoint") {
-    const { pages } = await getPdfText(file);
     const doc = await pdfjs.getDocument({ data: new Uint8Array(await read(file)) }).promise;
     const PptxGenJS: any = (await import("pptxgenjs")).default;
     const pptx = new PptxGenJS();
