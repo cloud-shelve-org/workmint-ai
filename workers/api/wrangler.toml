@@ -1,0 +1,14 @@
+name = "workmint-api"
+main = "src/index.ts"
+compatibility_date = "2026-11-18"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "workmint-usage"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[vars]
+AI_MODEL = "gpt-4o-mini"
+DAILY_IP_LIMIT = "10"
+# Set ALLOWED_ORIGIN after choosing the production domain.

@@ -2,27 +2,29 @@
 
 **Practical AI. Useful outcomes.**
 
-Workmint AI is a modular suite of focused AI-powered utilities. Each utility should solve a concrete user problem, provide a genuinely useful free experience, and have a clear path to sustainable monetization.
+Workmint AI is a modular suite of focused AI-powered utilities. Our first product is **Workmint Developer**, a developer workbench with an AI Error & Log Explainer plus private, browser-local utilities.
 
-## Product principles
-- Utility before novelty: build tools people return to.
-- Useful without an account where practical.
-- Privacy-first: explain what is processed, stored, and sent to AI providers.
-- Cost-aware by design: quotas, rate limits, caching, and usage metering from day one.
-- Modular: utilities can evolve independently without fragmenting the platform.
-- Measurable: instrument activation, successful outcomes, retention, and unit economics.
+## First release
+- **AI Error & Log Explainer** — submit a stack trace or log and receive evidence-aware root-cause hypotheses and debugging steps. Requires a configured server-side AI provider.
+- **JSON Formatter** — format and validate JSON locally in the browser.
+- **JWT Decoder** — decode a token's header and payload locally. It does not verify signatures.
 
-## Planned architecture
-- `apps/web` — React + TypeScript user interface.
-- `workers/api` — server-side API boundary; provider secrets never belong in the browser.
-- `packages/shared` — shared types, schemas, and utility contracts.
-- `docs` — product decisions, architecture, security, and operating guides.
-- `infrastructure` — deployment configuration, introduced when the hosting target is selected.
+## Tech stack
+- React, TypeScript, Vite
+- Cloudflare Worker API (deployment deferred)
+- Cloudflare D1 usage accounting
+- OpenAI-compatible chat completions API
 
-The initial development environment is local/GitHub-based. Cloudflare deployment will be added in a later phase.
+## Local development
+See [docs/SETUP.md](docs/SETUP.md). Node.js 20+ and npm 10+ are required.
 
-## Getting started
-The application workspace is being bootstrapped. Setup instructions will be added with the first runnable implementation.
+## Product and architecture
+- [Architecture](docs/ARCHITECTURE.md)
+- [Product principles](docs/PRODUCT_PRINCIPLES.md)
+- [Launch checklist](docs/LAUNCH_CHECKLIST.md)
 
-## Repository status
-Early foundation. No production services, AI provider integrations, authentication, billing, or user data storage are configured yet.
+## Security
+Never commit API keys or place them in browser-exposed environment variables. The AI explainer sends submitted text to the configured AI provider after best-effort credential redaction. Do not submit secrets, customer data, or regulated information. JSON and JWT tools run locally.
+
+## Status
+Early MVP implementation. Production AI service, provider credentials, Cloudflare database provisioning, testing, legal pages, and deployment are not yet complete.

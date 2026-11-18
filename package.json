@@ -1,13 +1,14 @@
 {
   "name": "workmint-ai",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A modular suite of practical AI-powered utilities",
   "workspaces": ["apps/*", "packages/*", "workers/*"],
   "scripts": {
-    "dev": "npm run dev --workspace @workmint/web",
+    "dev:web": "npm run dev --workspace @workmint/web",
+    "dev:api": "npm run dev --workspace @workmint/api",
     "build": "npm run build --workspace @workmint/web",
-    "typecheck": "npm run typecheck --workspace @workmint/web"
+    "typecheck": "npm run typecheck --workspace @workmint/web && npm run typecheck --workspace @workmint/api"
   },
   "engines": { "node": ">=20.0.0", "npm": ">=10.0.0" }
 }
