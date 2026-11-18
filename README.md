@@ -1,31 +1,45 @@
 # Workmint AI
 
-**Practical AI. Useful outcomes.**
+**One workspace. Useful tools. Browser-first by design.**
 
-Workmint AI is a modular suite of focused AI-powered utilities. Our first product is **Workmint Developer**, a developer workbench with an AI Error & Log Explainer plus private, browser-local utilities.
+Workmint AI is a static, browser-based workspace for document intelligence, file conversion, career tools, text processing and developer utilities.
 
-## First release
-- **AI Error & Log Explainer** — submit a stack trace or log and receive evidence-aware root-cause hypotheses and debugging steps. Requires a configured server-side AI provider.
-- **JSON Formatter** — format and validate JSON locally in the browser.
-- **JWT Decoder** — decode a token's header and payload locally. It does not verify signatures.
+## Product areas
+- **PDF Intelligence:** extract selectable PDF text, create extractive summaries, retrieve relevant passages by keyword, compare documents and merge PDFs.
+- **Document Studio:** PDF/DOCX text extraction and text-to-PDF/DOCX conversion.
+- **Career Intelligence:** resume structure review, job-description keyword coverage and cover-letter starter.
+- **Text Intelligence:** extractive summarization, word counts, text cleanup, case conversion and duplicate-line removal.
+- **Developer Utilities:** JSON formatting, JWT decoding (without signature verification) and rule-based error hints.
 
-## Tech stack
-- React, TypeScript, Vite
-- Cloudflare Worker API (deployment deferred)
-- Cloudflare D1 usage accounting
-- OpenAI-compatible chat completions API
+## Hosting and architecture
+- GitHub Pages static hosting.
+- React, TypeScript and Vite.
+- File processing and utilities execute in the user's browser.
+- No Workmint backend, database, server-side API key or telemetry service.
+- PDF.js, pdf-lib, Mammoth and docx provide browser-side document operations.
+
+## Important AI transparency
+The current public build uses local parsing, keyword retrieval, extractive summaries and transparent heuristics. These are **not generative AI** and must not be represented as model-generated reasoning. A browser-local generative model runtime is a separate capability that requires model downloads, compatible hardware and dedicated validation before it is enabled.
 
 ## Local development
-See [docs/SETUP.md](docs/SETUP.md). Node.js 20+ and npm 10+ are required.
+Requirements: Node.js 20+ and npm 10+.
 
-## Product and architecture
-- [Architecture](docs/ARCHITECTURE.md)
-- [Product principles](docs/PRODUCT_PRINCIPLES.md)
-- [Initial product research](docs/PRODUCT_RESEARCH.md)
-- [Launch checklist](docs/LAUNCH_CHECKLIST.md)
+```bash
+npm install
+npm run dev:web
+```
 
-## Security
-Never commit API keys or place them in browser-exposed environment variables. The AI explainer sends submitted text to the configured AI provider after best-effort credential redaction. Do not submit secrets, customer data, or regulated information. JSON and JWT tools run locally.
+Build and typecheck:
 
-## Status
-Early MVP implementation. Production AI service, provider credentials, Cloudflare database provisioning, testing, legal pages, and deployment are not yet complete.
+```bash
+npm run typecheck
+npm run build
+```
+
+## Privacy and limitations
+Files are processed in the browser and are not uploaded to a Workmint server. This does not protect data from browser extensions, compromised devices, or other software running on the user's device. Scanned-PDF OCR, exact semantic document comparison, generative AI and cryptographic JWT signature verification are not included in the current build.
+
+## Deployment
+Push to `main`. GitHub Actions builds `apps/web` and deploys the static output to GitHub Pages at:
+
+https://cloud-shelve-org.github.io/workmint-ai/
