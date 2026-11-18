@@ -22,9 +22,11 @@ async function sha256(value: string): Promise<string> {
 }
 function redactSecrets(input: string): string {
   return input
-    .replace(/(?i)(authorization\s*:\s*bearer\s+)[^\s]+/g, "$1[REDACTED]")
-    .replace(/(?i)(api[_-]?key|client[_-]?secret|password|passwd|token|access[_-]?key)(\s*[=:]\s*)[^\s,;]+/g, "$1$2[REDACTED]")
+    .replace(/(authorization\s*:\s*bearer\s+)[^\s]+/gi, "$1[REDACTED]")
+    .replace(/(api[_-]?key|client[_-]?secret|password|passwd|token|access[_-]?key)(\s*[=:]\s*)[^\s,;]+/gi, "$1$2[REDACTED]")
     .replace(/\bAKIA[0-9A-Z]{16}\b/g, "[REDACTED_AWS_ACCESS_KEY]")
+    .replace(/\bgh[pousr]_[A-Za-z0-9_]{20,}\b/g, "[REDACTED_GITHUB_TOKEN]")
+    .replace(/\bsk-[A-Za-z0-9_-]{20,}\b/g, "[REDACTED_API_KEY]")
     .replace(/-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----/g, "[REDACTED_PRIVATE_KEY]");
 }
 
@@ -51,12 +53,14 @@ export default {
     const ip = request.headers.get("CF-Connecting-IP") || "unknown";
     const ipHash = await sha256(ip + (env.OPENAI_API_KEY.slice(-8)));
     const day = new Date().toISOString().slice(0, 10);
-    const limit = Math.max(1, Math.min(100, Number(env.DAILY_IP_LIMIT || 10)));
+    const configuredLimit = Number(env.DAILY_IP_LIMIT || 10);
+    const limit = Number.isFinite(configuredLimit) ? Math.max(1, Math.min(100, configuredLimit)) : 10;
     try {
       await env.DB.prepare("INSERT OR IGNORE INTO usage_daily (ip_hash, usage_date, request_count) VALUES (?, ?, 0)").bind(ipHash, day).run();
-      const usage = await env.DB.prepare("SELECT request_count FROM usage_daily WHERE ip_hash = ? AND usage_date = ?").bind(ipHash, day).first<{request_count:number}>();
-      if (!usage || usage.request_count >= limit) return json({ error: "Daily free analysis limit reached. Please try again tomorrow." }, 429);
-      await env.DB.prepare("UPDATE usage_daily SET request_count = request_count + 1 WHERE ip_hash = ? AND usage_date = ?").bind(ipHash, day).run();
+      // Conditional UPDATE makes quota consumption atomic across concurrent requests.
+      const quota = await env.DB.prepare("UPDATE usage_daily SET request_count = request_count + 1 WHERE ip_hash = ? AND usage_date = ? AND request_count < ?")
+        .bind(ipHash, day, limit).run();
+      if (!quota.meta.changes) return json({ error: "Daily free analysis limit reached. Please try again tomorrow." }, 429);
     } catch {
       return json({ error: "Usage protection is temporarily unavailable. Please try again later." }, 503);
     }
