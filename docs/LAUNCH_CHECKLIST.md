@@ -12,10 +12,10 @@
 - [ ] Install dependencies and run build/typecheck.
 - [ ] Configure a real AI provider key as a server-side secret.
 - [ ] Provision D1 and apply migrations.
-- [ ] Replace non-atomic quota increment with an atomic/transactional limiter.
+- [x] Use an atomic conditional database update for daily quota consumption.
 - [ ] Add Turnstile or equivalent abuse protection.
 - [ ] Add privacy policy, terms, retention disclosures, and contact details.
-- [ ] Add provider spend alerts and operational monitoring.
+- [x] Record aggregate input/output token usage without retaining user prompts or outputs.\n- [ ] Configure provider spend alerts and review daily D1 usage reports.
 - [ ] Test with representative Java, Spring, Kafka, Docker, Kubernetes, and SQL errors.
 - [ ] Add automated tests for validation, redaction, quotas, and provider failures.
 - [ ] Complete Cloudflare account setup and production deployment.
