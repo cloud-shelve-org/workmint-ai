@@ -22,7 +22,7 @@ Browser-first PDF and document workspace with a light interface.
 DOCX text extraction, text to DOCX, resume checklist, job-description keyword coverage, cover-letter starter, text utilities, JSON formatter, JWT decoder and rule-based error hints.
 
 ## Important conversion limitations
-PDF to Word/Excel/PowerPoint, Word/Excel/PowerPoint to PDF and HTML to PDF are listed as planned converters, not working features yet. The current build does not promise faithful office-document conversion. OCR, true text editing, image-based watermarking, genuine compression, permanent redaction, digital signatures, advanced PDF form editing, and faithful Office conversion are not implemented yet. Grayscale export rasterises pages; crop uses a fixed inset; resize uses A4.
+Advanced conversions are implemented as browser-side, best-effort workflows. They do not promise faithful Office-document conversion: PDF to DOCX extracts selectable text; PDF to XLSX heuristically splits text rows; PDF to PPTX creates image-based slides; DOCX/XLSX/PPTX/HTML to PDF creates text-focused PDFs and does not preserve all layout, charts, images, formulas or animations. Scanned PDF OCR is not included. OCR, true text editing, image-based watermarking, genuine compression, permanent redaction, digital signatures, advanced PDF form editing, and faithful Office conversion are not implemented yet. Grayscale export rasterises pages; crop uses a fixed inset; resize uses A4.
 
 See [PDF Studio roadmap](docs/PDF_STUDIO_ROADMAP.md) for the full Sejda-benchmarked scope and staged implementation plan.
 

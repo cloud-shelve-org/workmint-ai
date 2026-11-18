@@ -23,6 +23,13 @@ Reference scope reviewed on 18 November 2026: Sejda's official PDF tool catalogu
 - PDF text extraction and keyword passage retrieval
 - Extractive and optional local-model PDF summarization
 - Text to PDF and DOCX to text
+- PDF to DOCX using selectable text extraction (limited layout fidelity)
+- PDF to XLSX using best-effort row segmentation (not dependable table reconstruction)
+- PDF to PPTX as one rasterised slide per PDF page
+- DOCX to text-focused PDF
+- XLSX to text-focused PDF
+- PPTX slide-text extraction to text-focused PDF
+- HTML body-text extraction to text-focused PDF
 - Compare documents using a basic unique-word comparison
 
 ## PDF capability benchmark / planned work
@@ -88,7 +95,7 @@ Workmint remains a static GitHub Pages app. File operations should run locally i
 
 ## Delivery order
 1. Finish core page operations: thumbnails, drag/drop reorder, multi-file merge, rotate selected pages, split/extract/delete.
-2. Complete everyday conversion: PDF to DOCX and DOCX to PDF with explicit layout-fidelity caveats; PDF images and image-to-PDF batch.
+2. Improve conversion fidelity: OCR-backed PDF conversion, table detection, DOCX layout preservation and real Office rendering.
 3. Add compression, crop, watermark image, headers/footers, metadata and flatten.
 4. Add OCR and scanned-document workflows.
 5. Add annotations, forms, signatures and true text/image editing.
