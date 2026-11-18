@@ -1,6 +1,6 @@
 # Local setup
 
-Requirements: Node.js 20+ and npm 10+.
+Requirements: Node.js 22+ and npm 10+.
 
 ```bash
 npm install
