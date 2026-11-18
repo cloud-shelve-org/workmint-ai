@@ -51,11 +51,12 @@ export default {
       return json({ error: "Context must be 500 characters or fewer." }, 400);
 
     const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-    const ipHash = await sha256(ip + (env.OPENAI_API_KEY.slice(-8)));
+    const ipHash = await sha256(ip + env.OPENAI_API_KEY);
     const day = new Date().toISOString().slice(0, 10);
     const configuredLimit = Number(env.DAILY_IP_LIMIT || 10);
     const limit = Number.isFinite(configuredLimit) ? Math.max(1, Math.min(100, configuredLimit)) : 10;
     try {
+      await env.DB.prepare("DELETE FROM usage_daily WHERE usage_date < ?").bind(new Date(Date.now() - 35 * 86400000).toISOString().slice(0, 10)).run();
       await env.DB.prepare("INSERT OR IGNORE INTO usage_daily (ip_hash, usage_date, request_count) VALUES (?, ?, 0)").bind(ipHash, day).run();
       // Conditional UPDATE makes quota consumption atomic across concurrent requests.
       const quota = await env.DB.prepare("UPDATE usage_daily SET request_count = request_count + 1 WHERE ip_hash = ? AND usage_date = ? AND request_count < ?")
