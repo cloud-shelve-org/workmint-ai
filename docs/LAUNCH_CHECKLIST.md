@@ -1,25 +1,29 @@
-# Launch checklist
+# Launch checklist — browser-only Workmint
 
-## Completed in repository
-- [x] Product direction selected: developer productivity.
-- [x] Initial AI utility UI implemented.
-- [x] Local JSON formatter and JWT decoder implemented.
-- [x] Server-side AI provider integration scaffolded.
-- [x] Input limits, best-effort secret redaction, and daily quota scaffolded.
-- [x] Architecture and setup documentation added.
+## Current static release
+- [x] Product expanded into PDF, document, career, text and developer utility spaces.
+- [x] GitHub Pages static deployment workflow.
+- [x] Browser-side PDF text extraction and PDF merge.
+- [x] Browser-side DOCX text extraction and DOCX generation.
+- [x] Text-to-PDF generation.
+- [x] Resume structure checklist and job-description keyword coverage.
+- [x] Extractive text/PDF summarization and keyword passage retrieval.
+- [x] JSON formatting, JWT decoding and rule-based error hints.
+- [x] Removed the Worker, D1 and server API integration from the application workspace.
 
-## Required before public launch
-- [ ] Install dependencies and run build/typecheck.
-- [ ] Configure a real AI provider key as a server-side secret.
-- [ ] Provision D1 and apply migrations.
-- [x] Use an atomic conditional database update for daily quota consumption.
-- [ ] Add Turnstile or equivalent abuse protection.
-- [ ] Add privacy policy, terms, retention disclosures, and contact details.
-- [x] Record aggregate input/output token usage without retaining user prompts or outputs.\n- [ ] Configure provider spend alerts and review daily D1 usage reports.
-- [ ] Test with representative Java, Spring, Kafka, Docker, Kubernetes, and SQL errors.
-- [ ] Add automated tests for validation, redaction, quotas, and provider failures.
-- [ ] Complete Cloudflare account setup and production deployment.
-- [ ] Validate product demand with target developers before adding more tools.
+## Before promoting beyond early access
+- [ ] Confirm latest GitHub Actions build and Pages deployment succeed.
+- [ ] Manually test PDF/DOCX operations on Safari iOS, Chrome desktop and Firefox.
+- [ ] Test large-file behavior and gracefully handle memory exhaustion.
+- [ ] Add automated unit tests for document parsing, keyword matching and conversion.
+- [ ] Add OCR for scanned PDFs if a suitable fully client-side engine is selected.
+- [ ] Add accessible progress, cancellation and error states for long-running operations.
+- [ ] Add privacy policy, terms, support/contact information and clear file-size limits.
+- [ ] Add local-model AI runtime only after measuring model download size, browser compatibility, device memory and output quality.
+- [ ] Audit licenses and model/data redistribution terms before enabling any model.
 
-## Commercial validation
-Interview 10-15 working developers. Measure repeat usage, whether the suggested fix helps, and willingness to pay. Do not assume that a generic AI wrapper has defensibility.
+## Capability truthfulness
+Current summaries are extractive. PDF question answering is keyword retrieval. Resume analysis is heuristic. Developer error hints are rule-based. These are not generative AI and must not be marketed as such. JWT decoding does not verify signatures. Scanned-PDF OCR is not included.
+
+## Product validation
+Observe users completing real document, resume and text tasks. Measure task completion, repeat usage, processing failures and willingness to recommend. Expand based on evidence, not feature count.
