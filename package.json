@@ -3,12 +3,17 @@
   "private": true,
   "version": "0.2.0",
   "description": "A modular suite of practical AI-powered utilities",
-  "workspaces": ["apps/*", "packages/*", "workers/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev:web": "npm run dev --workspace @workmint/web",
-    "dev:api": "npm run dev --workspace @workmint/api",
     "build": "npm run build --workspace @workmint/web",
-    "typecheck": "npm run typecheck --workspace @workmint/web && npm run typecheck --workspace @workmint/api"
+    "typecheck": "npm run typecheck --workspace @workmint/web"
   },
-  "engines": { "node": ">=20.0.0", "npm": ">=10.0.0" }
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
 }
