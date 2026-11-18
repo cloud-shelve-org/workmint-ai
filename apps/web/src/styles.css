@@ -70,5 +70,5 @@ body{font-size:15px}
 }
 
 
-/* Workmint brand identity */
-.brand{padding-bottom:34px}.brand-logo{display:block;width:174px;height:42px;object-fit:contain;object-position:left center}.brand:hover{opacity:.9}
+/* Workmint wordmark: retain the original compact W. identity */
+.brand{padding-bottom:34px}.brand:hover{opacity:.9}
