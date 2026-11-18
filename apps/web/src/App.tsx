@@ -92,7 +92,7 @@ export default function App(){
  const isDev=["JSON formatter","JWT decoder","Error explainer"].includes(tool);
  const isConverter=["Text to PDF","Text to DOCX"].includes(tool);
  return <div className="app-shell">
-  <aside className="sidebar"><a className="brand" href="#"><span className="brand-mark">w.</span><span>workmint<span className="brand-ai"> ai</span></span></a><div className="side-label">WORKSPACE</div>
+  <aside className="sidebar"><a className="brand" href="#"><img className="brand-logo" src="./logo.svg" alt="Workmint AI" /></a><div className="side-label">WORKSPACE</div>
    {nav.map(n=><button key={n.id} className={"nav-item "+(active===n.id?"selected":"")} onClick={()=>{setActive(n.id);setTool(n.tools[0]);setOutput("");setNotice("");setFile(null);setSecond(null);}}><span className="nav-icon">{n.icon}</span>{n.label}</button>)}
    <div className="side-label side-tools">YOUR SPACE</div><button className="nav-item" onClick={()=>setQuery(" ")}><span className="nav-icon">☆</span>Explore utilities</button>
    <div className="sidebar-bottom"><div className="privacy-chip"> <span/> Browser-first processing</div><a href="https://github.com/cloud-shelve-org/workmint-ai" target="_blank" rel="noreferrer">Open source repository ↗</a></div>
