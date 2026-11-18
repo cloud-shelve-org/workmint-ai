@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" role="img" aria-labelledby="title desc">
+  <title id="title">Workmint AI</title><desc id="desc">Workmint AI gradient W mark and wordmark</desc>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22c7ee"/><stop offset=".48" stop-color="#2563eb"/><stop offset="1" stop-color="#8b35e8"/></linearGradient></defs>
+  <g transform="translate(8 8)"><rect width="104" height="104" rx="27" fill="#f1f5ff"/><path d="M18 34c-2-5 1-10 7-12 6-2 11 1 14 7l14 31 14-31c3-6 8-9 14-7 6 2 9 7 7 12L65 88c-2 5-6 8-12 8s-10-3-12-8L18 34Z" fill="url(#g)"/><path d="M72 18c2 10 6 14 16 16-10 2-14 6-16 16-2-10-6-14-16-16 10-2 14-6 16-16Z" fill="#7c3aed"/></g>
+  <text x="132" y="76" font-family="Inter,Manrope,Arial,sans-serif" font-size="57" font-weight="750" letter-spacing="-2.8" fill="#17243a">workmint</text>
+  <text x="394" y="76" font-family="Inter,Manrope,Arial,sans-serif" font-size="57" font-weight="750" letter-spacing="-2.8" fill="url(#g)"> AI</text>
+</svg>
